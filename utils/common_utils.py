@@ -8,6 +8,8 @@ import os
 
 
 def get_current_directory():
+    print(os.listdir(os.path.dirname(os.path.realpath(__file__))))
+
     return os.path.dirname(os.path.realpath(__file__))
 
 def save_pickle_file(path_filename, object):
