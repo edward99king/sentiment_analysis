@@ -2,7 +2,12 @@ from facade import imdb_facade
 
 import pickle
 import typing
+
 import nltk
+from nltk.util import ngrams
+
+nltk.download('punkt')
+nltk.download('punkt_tab')
 
 import os
 
@@ -13,7 +18,6 @@ def get_current_directory():
 def save_pickle_file(path_filename, object):
     with open(path_filename, 'wb') as f:
         pickle.dump(object, f)
-
 
 def import_pickle_file(path_filename):
     try:
@@ -52,6 +56,14 @@ def remove_title_movie(text, title_movie):
 
     return [item for item in text if item not in title_movie]
 
+def generate_ngrams(text, n):
+    try:
+
+        words = nltk.word_tokenize(text)
+        n_grams = ngrams(words, n)
+        return [' '.join(grams) for grams in n_grams]
+    except Exception as ex:
+        print(ex)
 
 def lemmatize_text(text):
     w_tokenizer = nltk.tokenize.WhitespaceTokenizer()

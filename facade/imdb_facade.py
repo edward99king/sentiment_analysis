@@ -16,5 +16,4 @@ def get_all_movie_table():
 
 def get_all_movie_table_by_text(text):
     conn = connection.get_sql_connection()
-    print(conn)
     return imdb_dao.get_all_movie_table_by_text(conn, text)

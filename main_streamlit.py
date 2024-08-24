@@ -18,8 +18,8 @@ from textblob import TextBlob
 def package_preparation():
     nltk.download('stopwords')
     nltk.download('wordnet')
-    spacy.cli.download("en_core_web_sm")
 
+    spacy.cli.download("en_core_web_sm")
 
 def get_sentiment_polarity(text):
     blob = TextBlob(text)
@@ -46,9 +46,6 @@ def data_cleansing(df):
     df['clean_lemmatized'] = df['cleaned_text'].astype(str).apply(common_utils.lemmatize_text)
     df['clean_lemmatized'] = df['clean_lemmatized'].apply(common_utils.join_list_to_string)
 
-    df[f'Polarity'] = df['review'].astype(str).apply(lambda x: get_sentiment_polarity(x))
-    df[f'Subjectivity'] = df['review'].astype(str).apply(lambda x: get_sentiment_subjectivity(x))
-
 
 if __name__ == '__main__':
     package_preparation()
@@ -66,8 +63,6 @@ if __name__ == '__main__':
 
     if st.button("Search") or st.session_state["clicked"]:
         st.session_state["clicked"] = True
-
-        print(imdb_facade.get_list_tables())
 
         movies = imdb_facade.get_all_movie_table_by_text(text_input)
 
@@ -120,13 +115,17 @@ if __name__ == '__main__':
                     plt.axis("off")
                     st.pyplot(fig)
 
+                    df['Polarity'] = df['clean_lemmatized'].astype(str).apply(lambda x: get_sentiment_polarity(x))
+                    df['Subjectivity'] = df['clean_lemmatized'].astype(str).apply(lambda x: get_sentiment_subjectivity(x))
+                    df['NGrams'] = df['clean_lemmatized'].astype(str).apply(lambda x: common_utils.generate_ngrams(x, 2))
+
                     st.subheader("User Comment Sentiment: ")
                     st.header("Positive" if df['Polarity'].mean() > 0 else "Negative")
 
                     st.subheader("Comment Clasification: ")
                     st.header("Subjective" if df['Subjectivity'].mean() > 0 else "Objective")
 
-                    #TODO: Tambahkan n-gram -> ketahui sebagian komen itu mengenai apa.
+                    st.write(df['NGrams'])
 
                 except Exception as ex:
                     review_list = []
