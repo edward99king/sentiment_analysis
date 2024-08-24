@@ -1,6 +1,9 @@
 from dao import imdb_dao
 from utils import connection
 
+def get_list_tables():
+    conn = connection.get_sql_connection()
+    return imdb_dao.get_list_tables(conn)
 
 def insert_movie_table(id, primary_title, original_title, is_adult, start_year, end_year, runtime_minutes, genres):
     conn = connection.get_sql_connection()

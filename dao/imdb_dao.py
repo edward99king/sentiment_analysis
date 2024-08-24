@@ -1,6 +1,24 @@
 from utils import connection
 from model.Movies import Movies
 
+def get_list_tables(conn):
+    try:
+        query = '''
+            SELECT name FROM sqlite_master  
+            WHERE type='table';
+        )
+        '''
+
+        cursor_db = conn.cursor()
+        cursor_db.execute(query)
+        result = cursor_db.fetchall()
+
+        if conn:
+            conn.close()
+
+        return result
+    except Exception as ex:
+        print(ex)
 
 def create_movie_table():
     try:

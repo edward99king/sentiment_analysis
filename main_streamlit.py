@@ -67,6 +67,8 @@ if __name__ == '__main__':
     if st.button("Search") or st.session_state["clicked"]:
         st.session_state["clicked"] = True
 
+        print(imdb_facade.get_list_tables())
+
         movies = imdb_facade.get_all_movie_table_by_text(text_input)
 
         for movie in movies:
