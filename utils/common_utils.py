@@ -4,6 +4,12 @@ import pickle
 import typing
 import nltk
 
+import os
+
+
+def get_current_directory():
+    return os.path.dirname(os.path.realpath(__file__))
+
 def save_pickle_file(path_filename, object):
     with open(path_filename, 'wb') as f:
         pickle.dump(object, f)

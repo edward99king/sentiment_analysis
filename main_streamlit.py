@@ -118,8 +118,13 @@ if __name__ == '__main__':
                     plt.axis("off")
                     st.pyplot(fig)
 
-                    st.write("User Comment Sentiment: " + "Positive" if df['Polarity'].mean() > 0 else "Negative")
-                    st.write("Comment Clasification: " + "Subjective" if df['Subjectivity'].mean() > 0 else "Objective")
+                    st.subheader("User Comment Sentiment: ")
+                    st.header("Positive" if df['Polarity'].mean() > 0 else "Negative")
+
+                    st.subheader("Comment Clasification: ")
+                    st.header("Subjective" if df['Subjectivity'].mean() > 0 else "Objective")
+
+                    #TODO: Tambahkan n-gram -> ketahui sebagian komen itu mengenai apa.
 
                 except Exception as ex:
                     review_list = []
