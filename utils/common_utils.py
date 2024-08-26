@@ -3,6 +3,8 @@ from facade import imdb_facade
 import pickle
 import typing
 
+import pandas as pd
+
 import nltk
 from nltk.util import ngrams
 
@@ -58,12 +60,21 @@ def remove_title_movie(text, title_movie):
 
 def generate_ngrams(text, n):
     try:
-
         words = nltk.word_tokenize(text)
         n_grams = ngrams(words, n)
         return [' '.join(grams) for grams in n_grams]
     except Exception as ex:
         print(ex)
+
+def generate_ngrams_list(text, n):
+    try:
+        words = nltk.word_tokenize(text)
+        n_grams = ngrams(words, n)
+        return n_grams
+    except Exception as ex:
+        print(ex)
+        return None
+
 
 def lemmatize_text(text):
     w_tokenizer = nltk.tokenize.WhitespaceTokenizer()
@@ -85,6 +96,13 @@ def dict_person_to_string(dict_person, key_type):
     else:
         for person in dict_person:
             output_list.append(person["name"])
+
+    n = 15
+
+    if len(output_list) < 15:
+        n = len(output_list)
+
+    output_list = [output_list[i] for i in range(n)]
 
     return ", ".join(output_list)
 
