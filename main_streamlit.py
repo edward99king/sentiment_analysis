@@ -128,7 +128,12 @@ if __name__ == '__main__':
 
             with col2:
                 st.header(dict_movies[option])
-                st.markdown('<div style="text-align: justify;">' + movie_data['plot outline'] + ' </div>', unsafe_allow_html=True)
+
+                if 'plot outline' in movie_data:
+                    st.markdown('<div style="text-align: justify;">' + movie_data['plot outline'] + ' </div>', unsafe_allow_html=True)
+                else:
+                    st.markdown('<div style="text-align: justify;"> No Movie Plot Info </div>',
+                                unsafe_allow_html=True)
 
             st.markdown('<br>', unsafe_allow_html=True)
 
