@@ -84,27 +84,31 @@ def lemmatize_text(text):
 
 
 def dict_person_to_string(dict_person, key_type):
-    output_list = []
+    try:
+        output_list = []
 
-    if "writer" == key_type:
-        for person in dict_person:
-            if person._getitem("name") is not None:
-                output_list.append(person._getitem("name"))
-    elif "genres" == key_type:
-        for genres in dict_person:
-            output_list.append(genres)
-    else:
-        for person in dict_person:
-            output_list.append(person["name"])
+        if "writer" == key_type:
+            for person in dict_person:
+                if person._getitem("name") is not None:
+                    output_list.append(person._getitem("name"))
+        elif "genres" == key_type:
+            for genres in dict_person:
+                output_list.append(genres)
+        else:
+            for person in dict_person:
+                output_list.append(person["name"])
 
-    n = 15
+        n = 15
 
-    if len(output_list) < 15:
-        n = len(output_list)
+        if len(output_list) < 15:
+            n = len(output_list)
 
-    output_list = [output_list[i] for i in range(n)]
+        output_list = [output_list[i] for i in range(n)]
 
-    return ", ".join(output_list)
+        return ", ".join(output_list)
+    except Exception as ex:
+        print(ex)
+        return None
 
 
 def read_movies_title():

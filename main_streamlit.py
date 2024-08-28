@@ -120,7 +120,9 @@ if __name__ == '__main__':
                 if 'cover url' in movie_data:
                     st.header('')
                     cover_url = movie_data['full-size cover url']
-                    st.image(cover_url, width=310)
+
+                    if cover_url is not None:
+                        st.image(cover_url, width=310)
                 else:
                     st.write("no movie picture")
 
@@ -130,18 +132,43 @@ if __name__ == '__main__':
 
             st.markdown('<br>', unsafe_allow_html=True)
 
+            writer_info = common_utils.dict_person_to_string(movie_data["writer"], "writer")
 
-            st.markdown('<h4>Writer:</h4> <div style="text-align: justify;">' +
-                        common_utils.dict_person_to_string(movie_data["writer"], "writer") + ' </div>',
-                        unsafe_allow_html=True)
-            st.markdown('<h4>Director:</h4> <div style="text-align: justify;">' +
-                        common_utils.dict_person_to_string(movie_data["director"], "director") + ' </div>',
-                        unsafe_allow_html=True)
-            st.markdown('<h4>Cast:</h4> <div style="text-align: justify;">' + common_utils.dict_person_to_string(movie_data["cast"], "cast") + ' </div>',
-                        unsafe_allow_html=True)
-            st.markdown('<h4>Genres:</h4> <div style="text-align: justify;">' + common_utils.dict_person_to_string(movie_data["genres"], "genres") + ' </div>',
-                        unsafe_allow_html=True)
+            if writer_info is not None:
+                st.markdown('<h4>Writer:</h4> <div style="text-align: justify;">' +
+                            writer_info + ' </div>',
+                            unsafe_allow_html=True)
+            else:
+                st.markdown('<h4>Writer:</h4> <div style="text-align: justify;"> No Info </div>',
+                            unsafe_allow_html=True)
 
+            director_info = common_utils.dict_person_to_string(movie_data["director"], "director")
+
+            if director_info is not None:
+                st.markdown('<h4>Director:</h4> <div style="text-align: justify;">' +
+                            director_info + ' </div>',
+                            unsafe_allow_html=True)
+            else:
+                st.markdown('<h4>Director:</h4> <div style="text-align: justify;"> No Info </div>',
+                            unsafe_allow_html=True)
+
+            cast_info = common_utils.dict_person_to_string(movie_data["cast"], "cast")
+
+            if cast_info is not None:
+                st.markdown('<h4>Cast:</h4> <div style="text-align: justify;">' + cast_info + ' </div>',
+                            unsafe_allow_html=True)
+            else:
+                st.markdown('<h4>Cast:</h4> <div style="text-align: justify;"> No Info </div>',
+                            unsafe_allow_html=True)
+
+            genres_info = common_utils.dict_person_to_string(movie_data["genres"], "genres")
+
+            if genres_info is not None:
+                st.markdown('<h4>Genres:</h4> <div style="text-align: justify;">' +  genres_info + ' </div>',
+                            unsafe_allow_html=True)
+            else:
+                st.markdown('<h4>Genres:</h4> <div style="text-align: justify;"> No Info </div>',
+                            unsafe_allow_html=True)
 
             reviews = ia.get_movie_reviews(str(option))
 
@@ -158,9 +185,13 @@ if __name__ == '__main__':
 
                     rating_df = pd.DataFrame(get_dict_sum_group_rating(rating_list))
 
-                    st.markdown('<h4>Rating:</h4>' + rating_font_color(movie_data["rating"]) + str(
-                        movie_data["rating"]) + '</h1>',
-                                unsafe_allow_html=True)
+                    if 'rating' in movie_data:
+                        st.markdown('<h4>Rating:</h4>' + rating_font_color(movie_data["rating"]) + str(
+                            movie_data["rating"]) + '</h1>',
+                                    unsafe_allow_html=True)
+                    else:
+                        st.markdown('<h4>Rating:</h4> No Info </h1>',
+                                    unsafe_allow_html=True)
 
                     fig, ax = plt.subplots()
                     ax.barh(rating_df['Rating'], rating_df['Point'], color=['lightsalmon'])
@@ -235,7 +266,8 @@ if __name__ == '__main__':
                     review_list = []
                     st.write('There is no review')
 
-
+            else:
+                st.write('No Info')
 
 
 
