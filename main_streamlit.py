@@ -137,40 +137,57 @@ if __name__ == '__main__':
 
             st.markdown('<br>', unsafe_allow_html=True)
 
-            writer_info = common_utils.dict_person_to_string(movie_data["writer"], "writer")
+            if 'writer' in movie_data:
+                writer_info = common_utils.dict_person_to_string(movie_data["writer"], "writer")
 
-            if writer_info is not None:
-                st.markdown('<h4>Writer:</h4> <div style="text-align: justify;">' +
-                            writer_info + ' </div>',
-                            unsafe_allow_html=True)
+                if writer_info is not None:
+                    st.markdown('<h4>Writer:</h4> <div style="text-align: justify;">' +
+                                writer_info + ' </div>',
+                                unsafe_allow_html=True)
+                else:
+                    st.markdown('<h4>Writer:</h4> <div style="text-align: justify;"> No Info </div>',
+                                unsafe_allow_html=True)
             else:
                 st.markdown('<h4>Writer:</h4> <div style="text-align: justify;"> No Info </div>',
                             unsafe_allow_html=True)
 
-            director_info = common_utils.dict_person_to_string(movie_data["director"], "director")
+            if 'director' in movie_data:
+                director_info = common_utils.dict_person_to_string(movie_data["director"], "director")
 
-            if director_info is not None:
-                st.markdown('<h4>Director:</h4> <div style="text-align: justify;">' +
-                            director_info + ' </div>',
-                            unsafe_allow_html=True)
+                if director_info is not None:
+                    st.markdown('<h4>Director:</h4> <div style="text-align: justify;">' +
+                                director_info + ' </div>',
+                                unsafe_allow_html=True)
+                else:
+                    st.markdown('<h4>Director:</h4> <div style="text-align: justify;"> No Info </div>',
+                                unsafe_allow_html=True)
             else:
                 st.markdown('<h4>Director:</h4> <div style="text-align: justify;"> No Info </div>',
                             unsafe_allow_html=True)
 
-            cast_info = common_utils.dict_person_to_string(movie_data["cast"], "cast")
+            if 'cast' in movie_data:
 
-            if cast_info is not None:
-                st.markdown('<h4>Cast:</h4> <div style="text-align: justify;">' + cast_info + ' </div>',
-                            unsafe_allow_html=True)
+                cast_info = common_utils.dict_person_to_string(movie_data["cast"], "cast")
+
+                if cast_info is not None:
+                    st.markdown('<h4>Cast:</h4> <div style="text-align: justify;">' + cast_info + ' </div>',
+                                unsafe_allow_html=True)
+                else:
+                    st.markdown('<h4>Cast:</h4> <div style="text-align: justify;"> No Info </div>',
+                                unsafe_allow_html=True)
             else:
                 st.markdown('<h4>Cast:</h4> <div style="text-align: justify;"> No Info </div>',
-                            unsafe_allow_html=True)
+                        unsafe_allow_html=True)
 
-            genres_info = common_utils.dict_person_to_string(movie_data["genres"], "genres")
+            if 'genres' in movie_data:
+                genres_info = common_utils.dict_person_to_string(movie_data["genres"], "genres")
 
-            if genres_info is not None:
-                st.markdown('<h4>Genres:</h4> <div style="text-align: justify;">' +  genres_info + ' </div>',
-                            unsafe_allow_html=True)
+                if genres_info is not None:
+                    st.markdown('<h4>Genres:</h4> <div style="text-align: justify;">' +  genres_info + ' </div>',
+                                unsafe_allow_html=True)
+                else:
+                    st.markdown('<h4>Genres:</h4> <div style="text-align: justify;"> No Info </div>',
+                                unsafe_allow_html=True)
             else:
                 st.markdown('<h4>Genres:</h4> <div style="text-align: justify;"> No Info </div>',
                             unsafe_allow_html=True)
